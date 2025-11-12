@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدكتورة وجدان الحضراني - منصة التقييم العالمية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4a6fa5, #6b8cbc);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(74, 111, 165, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z"/></svg>');
+            background-size: 150px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .header-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content-box {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a6fa5;
+        }
+        
+        input, textarea, select {
+            padding: 14px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: #4a6fa5;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+        
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 16px;
+            background: linear-gradient(135deg, #ff7e5f, #ff6b4a);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .review-item {
+            padding: 25px;
+            background: linear-gradient(to right, #f9f9f9, #ffffff);
+            border-radius: 12px;
+            border-left: 5px solid #4a6fa5;
+            animation: fadeIn 0.5s ease-in;
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .review-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        .reviewer-name {
+            font-weight: 700;
+            color: #4a6fa5;
+            font-size: 1.1rem;
+        }
+        
+        .review-date {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .review-content {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #777;
+            font-size: 1.2rem;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        
+        .stats {
+            background: linear-gradient(135deg, #e3f2fd, #f0f7ff);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #4a6fa5;
+            font-size: 1.8rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #4a6fa5;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .connected {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .disconnected {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .rating {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .star {
+            color: #ddd;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        .star.active {
+            color: #ffc107;
+            text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+        }
+
+        .review-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .review-rating {
+            background: #fff3cd;
+            color: #856404;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        .review-category {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .admin-panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #e9ecef;
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            padding: 8px 15px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: #5a6268;
+        }
+
+        .admin-btn.danger {
+            background: #dc3545;
+        }
+
+        .admin-btn.danger:hover {
+            background: #c82333;
+        }
+
+        .sync-status {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .api-setup {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .api-setup h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .api-setup ol {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .api-setup li {
+            margin-bottom: 8px;
+        }
+
+        .api-setup a {
+            color: #4a6fa5;
+            text-decoration: none;
+        }
+
+        .api-setup a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .content-box {
+                padding: 20px;
+            }
+            
+            .review-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .connection-status {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                justify-content: center;
+            }
+            
+            .admin-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">
+        <i class="fas fa-sync fa-spin"></i>
+        <span>جاري الاتصال بالسحابة...</span>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>الدكتورة وجدان الضراني</h1>
+            <p class="header-subtitle">منصة التقييم العالمية - جميع التعليقات مرئية للجميع في الوقت الفعلي</p>
+        </header>
+        
+        <div class="content-box">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="reviewsCount">0</div>
+                    <div class="stat-label">تقييم</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="averageRating">0.0</div>
+                    <div class="stat-label">متوسط التقييم</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="lastUpdate">الآن</div>
+                    <div class="stat-label">آخر تحديث</div>
+                </div>
+            </div>
+
+            <h2><i class="fas fa-edit"></i> أضف تقييمك</h2>
+            <div id="alert" class="alert"></div>
+            <form class="review-form" id="reviewForm">
+                <div class="form-group">
+                    <label for="reviewerName"><i class="fas fa-user"></i> اسمك (اختياري)</label>
+                    <input type="text" id="reviewerName" placeholder="يمكنك تركه فارغاً للبقاء مجهولاً">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewCategory"><i class="fas fa-tag"></i> فئة التقييم</label>
+                    <select id="reviewCategory">
+                        <option value="عام">تقييم عام</option>
+                        <option value="الكفاءة المهنية">الكفاءة المهنية</option>
+                        <option value="مهارات التواصل">مهارات التواصل</option>
+                        <option value="الرعاية">الرعاية</option>
+                        <option value="الوقت">الوقت</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-star"></i> التقييم</label>
+                    <div class="rating" id="ratingStars">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                    </div>
+                    <input type="hidden" id="ratingValue" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewText"><i class="fas fa-comment"></i> تعليقك</label>
+                    <textarea id="reviewText" placeholder="اكتب تعليقك هنا..." required></textarea>
+                    <div style="text-align: right; margin-top: 5px; font-size: 0.8rem; color: #666;">
+                        <span id="charCount">0</span>/500 حرف
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i>
+                    إرسال التقييم
+                </button>
+            </form>
+
+            <div class="admin-panel">
+                <h3><i class="fas fa-cog"></i> أدوات الإدارة</h3>
+                <div class="admin-buttons">
+                    <button class="admin-btn" onclick="addTestReviews()">
+                        <i class="fas fa-plus"></i> إضافة تقييمات تجريبية
+                    </button>
+                    <button class="admin-btn danger" onclick="clearAllReviews()">
+                    </button>
+                    <button class="admin-btn" onclick="exportReviews()">
+                        <i class="fas fa-download"></i> تصدير التقييمات
+                    </button>
+                    <button class="admin-btn" onclick="showApiSetup()">
+                        <i class="fas fa-key"></i> إعداد API
+                    </button>
+                </div>
+                <div class="sync-status" id="syncStatus">
+                    <i class="fas fa-cloud"></i> 
+                    <span>جاري المزامنة مع السحابة...</span>
+                </div>
+            </div>
+
+            <div class="api-setup" id="apiSetup" style="display: none;">
+                <h4><i class="fas fa-info-circle"></i> كيفية إعداد الاتصال بالسحابة</h4>
+                <ol>
+                    <li>اذهب إلى <a href="https://jsonbin.io" target="_blank">JSONBin.io</a> وأنشئ حساب مجاني</li>
+                    <li>أنشئ Bin جديد وانسخ الـ Bin ID</li>
+                    <li>اذهب إلى API Keys وانسخ Master Key</li>
+                    <li>استبدل القيم في الكود أدناه بمفاتيحك الفعلية:</li>
+                </ol>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px; font-size: 0.8rem;">
+const JSONBIN_CONFIG = {
+    BIN_ID: 'ضع_Bin_ID_الفعال_هنا',
+    API_KEY: 'ضع_Master_Key_الفعال_هنا'
+};</pre>
+                <p style="margin-top: 10px; font-size: 0.8rem; color: #856404;">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    سيعمل النظام محلياً بدون هذه المفاتيح، لكن للمزامنة العالمية تحتاج إلى إعدادها.
+                </p>
+            </div>
+        </div>
+        
+        <div class="content-box">
+            <h2><i class="fas fa-comments"></i> التقييمات <small>(الجميع يرى نفس التعليقات في الوقت الفعلي)</small></h2>
+            <div class="reviews-list" id="reviewsList">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <div>جاري تحميل التقييمات من السحابة...</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>جميع الحقوق محفوظة © 2025 - نظام تقييم الدكتورة وجدان الضراني</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #888;">
+                النظام متصل بالسحابة - جميع المستخدمين يرون نفس التعليقات عالمياً
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // JSONBin.io Configuration - استبدل هذه بالمفاتيح الفعلية
+        const JSONBIN_CONFIG = {
+            BIN_ID: '67b1a7eae41b4d34e4476543', // استبدل بـ Bin ID الفعلي
+            API_KEY: '$2a$10$5z8TcD3Q2eR4fA2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4', // استبدل بـ Master Key الفعلي
+            BASE_URL: 'https://api.jsonbin.io/v3/b'
+        };
+
+        // نظام التخزين السحابي
+        class CloudStorage {
+            constructor() {
+                this.binId = JSONBIN_CONFIG.BIN_ID;
+                this.apiKey = JSONBIN_CONFIG.API_KEY;
+                this.baseUrl = JSONBIN_CONFIG.BASE_URL;
+                this.isConnected = false;
+                this.init();
+            }
+
+            async init() {
+                this.isConnected = await this.testConnection();
+                this.updateConnectionStatus();
+            }
+
+            async testConnection() {
+                // التحقق من وجود مفاتيح API صالحة
+                if (this.binId === '67b1a7eae41b4d34e4476543' || this.apiKey.includes('ضع_')) {
+                    console.log('استخدام المفاتيح التجريبية الافتراضية - وظائف محدودة');
+                    this.isConnected = false;
+                    return false;
+                }
+
+                try {
+                    const response = await fetch(`${this.baseUrl}/${this.binId}/latest`, {
+                        headers: {
+                            'X-Master-Key': this.apiKey
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        console.log('الاتصال بخدمة السحابة ناجح');
+                        return true;
+                    } else {
+                        console.log('استجابة خدمة السحابة غير OK:', response.status);
+                        return false;
+                    }
+                } catch (error) {
+                    console.log('خدمة السحابة غير متوفرة، استخدام التخزين المحلي:', error);
+                    return false;
+                }
+            }
+
+            updateConnectionStatus() {
+                const statusElement = document.getElementById('connectionStatus');
+                const syncStatus = document.getElementById('syncStatus');
+                
+                if (this.isConnected) {
+                    statusElement.innerHTML = '<i class="fas fa-cloud"></i><span>متصل بالسحابة العالمية</span>';
+                    statusElement.className = 'connection-status connected';
+                    syncStatus.innerHTML = '<i class="fas fa-cloud"></i><span>متصل بالسحابة العالمية - البيانات متزامنة عالمياً</span>';
+                } else {
+                    statusElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>غير متصل - الوضع المحلي فقط</span>';
+                    statusElement.className = 'connection-status disconnected';
+                    syncStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>غير متصل - قم بإعداد مفاتيح API للمزامنة العالمية</span>';
+                }
+            }
+
+            async getReviews() {
+                // حاول الاتصال بالسحابة أولاً
+                if (this.isConnected) {
+                    try {
+                        const response = await fetch(`${this.baseUrl}/${this.binId}/latest`, {
+                            headers: {
+                                'X-Master-Key': this.apiKey
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            const reviews = data.record?.reviews || [];
+                            
+                            // مزامنة مع التخزين المحلي
+                            this.syncWithLocalStorage(reviews);
+                            
+                            return reviews;
+                        }
+                    } catch (error) {
+                        console.log('خطأ في جلب التقييمات من السحابة');
+                        this.isConnected = false;
+                        this.updateConnectionStatus();
+                    }
+                }
+                
+                // استخدام التخزين المحلي كنسخة احتياطية
+                return this.getLocalReviews();
+            }
+
+            async saveReviews(reviews) {
+                // حاول الحفظ في السحابة
+                if (this.isConnected) {
+                    try {
+                        const response = await fetch(`${this.baseUrl}/${this.binId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Master-Key': this.apiKey,
+                                'X-Bin-Versioning': 'false'
+                            },
+                            body: JSON.stringify({ 
+                                reviews: reviews,
+                                lastUpdated: new Date().toISOString(),
+                                totalReviews: reviews.length
+                            })
+                        });
+
+                        if (response.ok) {
+                            console.log('تم حفظ التقييم في السحابة العالمية');
+                            // تحديث التخزين المحلي
+                            this.saveLocalReviews(reviews);
+                            return true;
+                        }
+                    } catch (error) {
+                        console.log('خطأ في حفظ التقييم في السحابة');
+                        this.isConnected = false;
+                        this.updateConnectionStatus();
+                    }
+                }
+                
+                // الحفظ محلياً إذا فشل الحفظ في السحابة
+                return this.saveLocalReviews(reviews);
+            }
+
+            async addReview(review) {
+                const currentReviews = await this.getReviews();
+                currentReviews.unshift(review);
+                return this.saveReviews(currentReviews);
+            }
+
+            getLocalReviews() {
+                try {
+                    const reviews = localStorage.getItem('dr_wejdan_shared_reviews');
+                    return reviews ? JSON.parse(reviews) : [];
+                } catch (error) {
+                    console.error('خطأ في قراءة التقييمات المحلية:', error);
+                    return [];
+                }
+            }
+
+            saveLocalReviews(reviews) {
+                try {
+                    localStorage.setItem('dr_wejdan_shared_reviews', JSON.stringify(reviews));
+                    return true;
+                } catch (error) {
+                    console.error('خطأ في حفظ التقييمات المحلية:', error);
+                    return false;
+                }
+            }
+
+            syncWithLocalStorage(cloudReviews) {
+                const localReviews = this.getLocalReviews();
+                
+                // دمج التقييمات مع إعطاء الأولوية للسحابة
+                const mergedReviews = this.mergeReviews(cloudReviews, localReviews);
+                
+                // حفظ النسخة المدمجة محلياً
+                this.saveLocalReviews(mergedReviews);
+            }
+
+            mergeReviews(cloudReviews, localReviews) {
+                const reviewMap = new Map();
+                
+                // أضف تقييمات السحابة أولاً
+                cloudReviews.forEach(review => {
+                    reviewMap.set(review.id, review);
+                });
+                
+                // أضف التقييمات المحلية (إذا لم تكن في السحابة)
+                localReviews.forEach(review => {
+                    if (!reviewMap.has(review.id)) {
+                        reviewMap.set(review.id, review);
+                    }
+                });
+                
+                // تحويل إلى مصفوفة وترتيب حسب التاريخ
+                return Array.from(reviewMap.values())
+                    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            }
+
+            async clearAll() {
+                if (this.isConnected) {
+                    try {
+                        const response = await fetch(`${this.baseUrl}/${this.binId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Master-Key': this.apiKey
+                            },
+                            body: JSON.stringify({ 
+                                reviews: [],
+                                lastUpdated: new Date().toISOString(),
+                                totalReviews: 0
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            this.saveLocalReviews([]);
+                            return true;
+                        }
+                    } catch (error) {
+                        console.log('خطأ في حذف التقييمات من السحابة');
+                    }
+                }
+                
+                return this.saveLocalReviews([]);
+            }
+        }
+
+        // إدارة التقييمات
+        class ReviewManager {
+            constructor() {
+                this.storage = new CloudStorage();
+                this.reviews = [];
+            }
+
+            async loadReviews() {
+                this.reviews = await this.storage.getReviews();
+                return this.reviews;
+            }
+
+            async addReview(name, text, category, rating) {
+                const newReview = {
+                    id: Date.now() + Math.random().toString(36).substr(2, 9),
+                    name: name || 'زائر',
+                    text: text,
+                    category: category || 'عام',
+                    rating: rating || 0,
+                    date: new Date().toLocaleDateString('ar-SA'),
+                    time: new Date().toLocaleTimeString('ar-SA', { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                    }),
+                    timestamp: Date.now()
+                };
+
+                const success = await this.storage.addReview(newReview);
+                if (success) {
+                    this.reviews.unshift(newReview);
+                }
+                return newReview;
+            }
+
+            getReviewsCount() {
+                return this.reviews.length;
+            }
+
+            getAverageRating() {
+                if (this.reviews.length === 0) return 0;
+                const ratedReviews = this.reviews.filter(review => review.rating > 0);
+                if (ratedReviews.length === 0) return 0;
+                const total = ratedReviews.reduce((sum, review) => sum + review.rating, 0);
+                return (total / ratedReviews.length).toFixed(1);
+            }
+
+            containsBadWords(text) {
+                const badWords = [
+                    'سيء', 'قبيح', 'مقرف', 'مزعج', 'مخجل', 
+                    'غبي', 'أحمق', 'ممل', 'محرج', 'قذر',
+                    'أكره', 'فظيع', 'مخيف', 'مقزز', 'لا قيمة',
+                    'bad', 'ugly', 'disgusting', 'annoying', 'shameful',
+                    'stupid', 'idiot', 'boring', 'cringe', 'dirty',
+                    'hate', 'terrible', 'awful', 'horrible', 'worthless'
+                ];
+                
+                const lowerText = text.toLowerCase();
+                return badWords.some(word => lowerText.includes(word.toLowerCase()));
+            }
+
+            isDuplicate(text, recentMinutes = 5) {
+                const recentTime = Date.now() - (recentMinutes * 60 * 1000);
+                return this.reviews.some(review => 
+                    review.text === text && 
+                    review.timestamp > recentTime
+                );
+            }
+
+            async clearAllReviews() {
+                const success = await this.storage.clearAll();
+                if (success) {
+                    this.reviews = [];
+                }
+                return success;
+            }
+        }
+
+        // واجهة المستخدم
+        const UI = {
+            reviewManager: new ReviewManager(),
+            currentRating: 0,
+            autoRefreshInterval: null,
+
+            showAlert(message, type) {
+                const alertDiv = document.getElementById('alert');
+                alertDiv.textContent = message;
+                alertDiv.className = `alert alert-${type}`;
+                alertDiv.style.display = 'block';
+                
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 5000);
+            },
+
+            async displayReviews() {
+                const reviewsList = document.getElementById('reviewsList');
+                const reviews = await this.reviewManager.loadReviews();
+                
+                reviewsList.innerHTML = '';
+                
+                if (reviews.length === 0) {
+                    reviewsList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="far fa-comments"></i>
+                            <div>  تقييمات  .    !</div>
+                        </div>
+                    `;
+                } else {
+                    reviews.forEach(review => {
+                        this.displayReview(review);
+                    });
+                }
+
+                this.updateStats();
+            },
+
+            displayReview(review) {
+                const reviewsList = document.getElementById('reviewsList');
+                const emptyState = reviewsList.querySelector('.empty-state');
+                
+                if (emptyState) {
+                    emptyState.remove();
+                }
+
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                
+                let starsHtml = '';
+                const rating = review.rating || 0;
+                for (let i = 1; i <= 5; i++) {
+                    starsHtml += `<span class="star ${i <= rating ? 'active' : ''}">★</span>`;
+                }
+                
+                const ratingDisplay = rating > 0 ? 
+                    `<span class="review-rating">${starsHtml} (${rating}/5)</span>` : 
+                    '<span class="review-rating">بدون تقييم</span>';
+                
+                reviewItem.innerHTML = `
+                    <div class="review-header">
+                        <span class="reviewer-name">${this.escapeHtml(review.name)}</span>
+                        <span class="review-date">${review.date} - ${review.time}</span>
+                    </div>
+                    <div class="review-meta">
+                        ${ratingDisplay}
+                        <span class="review-category">${this.escapeHtml(review.category)}</span>
+                    </div>
+                    <div class="review-content">${this.escapeHtml(review.text)}</div>
+                `;
+                
+                reviewsList.appendChild(reviewItem);
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            updateStats() {
+                document.getElementById('reviewsCount').textContent = this.reviewManager.getReviewsCount();
+                document.getElementById('averageRating').textContent = this.reviewManager.getAverageRating();
+                document.getElementById('lastUpdate').textContent = 'الآن';
+            },
+
+            clearForm() {
+                document.getElementById('reviewForm').reset();
+                this.currentRating = 0;
+                this.updateRatingStars();
+                document.getElementById('ratingValue').value = '0';
+                this.updateCharCount();
+            },
+
+            setLoading(loading) {
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.disabled = loading;
+                submitBtn.innerHTML = loading 
+                    ? '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...' 
+                    : '<i class="fas fa-paper-plane"></i> إرسال التقييم';
+            },
+
+            setupRatingStars() {
+                const stars = document.querySelectorAll('.star');
+                stars.forEach(star => {
+                    star.addEventListener('click', () => {
+                        const rating = parseInt(star.getAttribute('data-rating'));
+                        this.currentRating = rating;
+                        this.updateRatingStars();
+                        document.getElementById('ratingValue').value = rating;
+                    });
+                });
+            },
+
+            updateRatingStars() {
+                const stars = document.querySelectorAll('.   this.show     // إضافة النشاط للتبويب الم
